@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Тестовое задание</title>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css'%}">
+</head>
+<body>
+<div  style=" background-color: #e5e5e5; margin-bottom: 30px">
+    <div class="container">
+        <div class="row">
+            <div class="col-12" style="margin: 50px auto">
+                {% block title %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    {% block content %}
+    {% endblock %}
+</div>
+<footer style=" background-color: #666666; padding-bottom: 30px; margin-top: 50px">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="row justify-content-center" style="margin-top: 50px; color: #f8f8f8">
+                Ave Omnissiah!
+            </div>
+        </div>
+    </div>
+</footer>
+<script src="{% static 'jquery-3.2.1.min.js' %}"></script>
+<script src="{% static 'bootstrap/js/bootstrap.js' %}"></script>
+{% block scripts %}
+{% endblock %}
+</body>
+</html>

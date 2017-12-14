@@ -1,0 +1,17 @@
+{% extends 'main.html' %}
+{% block content %}
+    <div class="row">
+        <div class="col-12">
+            {% for record in records %}
+                <h2>{{ record.title }}</h2>
+                <p class="lead">Метки: {{ record.category }}</p>
+                <div style="margin-bottom: 20px"></div>
+                <p>{{ record.body|truncatewords:100|safe }}</p>
+                <div class="row" style="margin-bottom: 50px">
+                    <div class="col-5"><em>Добавлена: {{ record.created|date:"d/m/Y" }}</em></div>
+                    <div class="col-6 text-right"><a href="{% url 'record' record.id %}">Подробнее...</a></div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
