@@ -1,103 +1,21 @@
 {% extends 'main.html' %}
+{% block title %}
+    <h1>{{ record.creator.blog_name }}</h1>
+    <em>{{ record.creator.get_full_name }}</em>
+{% endblock %}
 {% block content %}
     <div class="row">
         <div class="col-12">
             <h2>{{ record.title }}</h2>
-            <p class="lead">Метки: {{ record.category }}</p>
             <div style="margin-bottom: 20px"></div>
             <p>{{ record.body|safe}}</p>
             <div class="row" style="margin-bottom: 50px">
                 <div class="col-5"><em>Добавлена: {{ record.created|date:"d/m/Y" }}</em></div>
             </div>
+            <button id="mark" class="btn btn-outline-info">Пометить прочитанной</button>
         </div>
     </div>
     <hr>
-    <div class="row" style="margin-top: 30px">
-        <div class="col-12">
-        <h3>Комментарии</h3>
-        </div>
-    </div>
-    <div class="row" id="comments">
-    </div>
-    <hr>
-    <div class="row" style="margin-top: 30px">
-        <div class="col-12">
-            <h3>Оставить комментарий</h3>
-            <form id="comment_form">
-              <div class="form-group">
-                <label for="title">Заглавие</label>
-                <input type="text" class="form-control" id="title" placeholder="Заглавие">
-              </div>
-              <div class="form-group">
-                <label for="author">Автор</label>
-                <input type="text" class="form-control" id="author" placeholder="Ваше имя">
-              </div>
-              <div class="form-group">
-                <label for="body">Текст сообщения</label>
-                <textarea class="form-control" id="body" rows="3"></textarea>
-              </div>
-              <div class="btn btn-primary" id="send_comment">Отправить</div>
-            </form>
-        </div>
-    </div>
 {% endblock %}
 {% block scripts %}
-    <script type="application/javascript">
-    function all_comments(){
-        $('#comments').html('');
-        $.ajax({
-            url: "{% url 'comments' record.id %}",
-            type: 'GET',
-            dataType: 'json',
-            success: function(data){
-                if (data.count==0){
-                    $('#comments').append(
-                      '<div class="col-12" style="margin-top: 20px">'+
-                      '<h6>Комментариев пока нет. Станьте первым, оставьте след в истории!</h6>'+
-                      '</div>'
-                  );
-                }
-                else{
-                  data.results.forEach(function(item, i, arr){
-                  $('#comments').append(
-                      '<div class="col-12" style="margin-top: 20px">'+
-                      '<h5>'+item.title+'</h5>'+
-                      '<p>'+item.body+'</p>'+
-                      '<small>Автор: <strong>'+item.author+'</strong></small><br>'+
-                      '<em><small>Оставлено: '+item.created+'</small></em>'+
-                      '</div>'
-                  );
-              })
-
-                }
-            }
-        })
-    }
-    $(document).ready(function(){
-        all_comments();
-    })
-
-    $('#send_comment').click(function(){
-        title = $("#title").val();
-        author = $("#author").val();
-        body = $("#body").val();
-
-        console.log(title, author, body);
-
-        $.ajax({
-            url: "{% url 'comments' record.id %}",
-            type: 'POST',
-            dataType: 'json',
-            data: {
-                'title':title,
-                'author': author,
-                'body':body,
-                'record_id':{{ record.id }}
-            },
-            success: function(data){
-                all_comments()
-            }
-        })
-    })
-    </script>
 {% endblock %}

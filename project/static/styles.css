@@ -1,0 +1,89 @@
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  background-color: #eee;
+  margin-bottom: 105px;
+}
+
+label {
+    margin-top: 15px;
+    font-size: 16px;
+}
+
+.form-error {
+    color: red;
+    text-align: center;
+    font-size: 15px;
+}
+
+.form-signin {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+  margin-bottom: 10px;
+}
+
+.form-signin .form-control {
+  position: relative;
+  box-sizing: border-box;
+  height: auto;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.starter-template {
+  padding: 3rem 1.5rem;
+  text-align: center;
+}
+
+.greeting {
+    color: #fff;
+    padding-top: 0.5rem;
+    text-align: center;
+}
+
+.header {
+    padding:70px 0 20px;
+    background-color: #e5e5e5;
+    margin-bottom: 30px
+    }
+
+footer {
+     position: absolute;
+     bottom: 0;
+     width: 100%;
+     background-color: #666666;
+     padding-bottom: 30px;
+     margin-top: 50px
+}
+
+.blog-post {
+  margin-bottom: 4rem;
+}
+.blog-post-title {
+  margin-bottom: .25rem;
+  font-size: 2.5rem;
+}
+.blog-post-meta {
+  margin-bottom: 1.25rem;
+  color: #999;
+}

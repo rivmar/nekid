@@ -3,17 +3,17 @@
     <h1>Авторизация</h1>
 {% endblock %}
 {% block content %}
-    <div class="container">
+    <div class="container justify-content-center">
         {% if form.errors %}
-            <p>Упс... что-то пошло не так. Попробуйте еще раз!</p>
+            <div class="form-error">Упс... что-то пошло не так. Попробуйте еще раз!</div>
         {% endif %}
-          <form method="post" action="{% url 'login' %}" class="form-signin">
+          <form method="post" class="form-signin">
               {% csrf_token %}
-               <h2 class="form-signin-heading">Пожалуйста, зарегистрируйтесь в системе</h2>
-               <label for="id_username" class="sr-only">Ваш логин</label>
-               <input id="id_username" class="form-control" placeholder="Логин" required autofocus>
-               <label for="id_assword" class="sr-only">Пароль</label>
-               <input type="password" id="id_assword" class="form-control" placeholder="Пароль" required>
+               <h2 class="form-signin-heading">Вход в систему</h2>
+               <label for="id_username" class="">Ваш логин</label>
+               <input id="id_username" class="form-control" placeholder="Логин" name="username" autofocus>
+               <label for="id_password" class="">Пароль</label>
+               <input type="password" id="id_password" class="form-control" placeholder="Пароль" name="password">
                <button class="btn btn-lg btn-primary btn-block" type="submit">Войти</button>
           </form>
     </div> <!-- /container -->

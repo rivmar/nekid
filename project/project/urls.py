@@ -8,7 +8,8 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^login/$', login, name='login'),
     url(r'^logout/$', logout, name='logout'),
-    url(r'^', include('blogs.urls')),
+    url(r'^users_and_blogs/', include('users.urls', namespace='users')),
+    url(r'^', include('blogs.urls', namespace='blogs')),
 ]
 
 urlpatterns+=static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
