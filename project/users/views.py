@@ -2,6 +2,7 @@ from django.views.generic import ListView
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from .models import Users
+from blogs.models import Record
 
 class BlogsListView(ListView):
     model = Users
@@ -14,8 +15,14 @@ def subscribe(request, pk):
     author = Users.objects.get(id=pk)
     if author in  subscriber.subscribes.all():
         subscriber.subscribes.remove(author)
-        response=0
     else:
         subscriber.subscribes.add(author)
-        response=1
-    return HttpResponse(response)
+    return HttpResponse('Ok')
+
+
+@login_required
+def mark_viewed(request, pk):
+    user = Users.objects.get(id=request.user.id)
+    record = Record.objects.get(id=pk)
+    user.viewed_records.add(record)
+    return HttpResponse('Ok')

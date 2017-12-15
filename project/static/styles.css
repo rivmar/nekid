@@ -71,13 +71,14 @@ footer {
      position: absolute;
      bottom: 0;
      width: 100%;
-     background-color: #666666;
-     padding-bottom: 30px;
-     margin-top: 50px
+     background-color: #666;
+     padding-bottom: 15px;
+     margin-top: 50px;
 }
 
 .blog-post {
   margin-bottom: 4rem;
+  border-bottom: 1px solid #868e9640;
 }
 .blog-post-title {
   margin-bottom: .25rem;
@@ -86,4 +87,16 @@ footer {
 .blog-post-meta {
   margin-bottom: 1.25rem;
   color: #999;
+}
+
+sup.new {
+    color: red;
+    font-size: 12pt;
+    font-family: Cursive;
+    font-weight: 600;
+    top: -1em;
+}
+
+.btn a {
+    text-decoration: None !important;
 }

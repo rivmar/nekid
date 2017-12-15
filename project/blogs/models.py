@@ -2,6 +2,8 @@
 from django.db import models
 from django.conf import settings
 from django.urls import reverse
+from django.db.models.signals import post_save
+from django.core.mail import send_mass_mail
 
 class Record(models.Model):
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='records', verbose_name='Автор')
@@ -19,6 +21,19 @@ class Record(models.Model):
     def get_absolute_url(self):
         return reverse('blogs:record', kwargs={'pk':str(self.id)})
 
-class ViewedRecords(models.Model):
-    record = models.ForeignKey(Record, related_name='viewers',verbose_name='Запись', on_delete=models.CASCADE)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='viewed_records', verbose_name='Читатель', on_delete=models.CASCADE)
+def record_created(sender,**kwargs):
+    instance = kwargs.get('instance', None)
+    created = kwargs.get('created', False)
+    if created:
+        host = settings.SITE_URL
+        url = instance.get_absolute_url
+        recipients = list(instance.creator.subscribers.all().values_list('email', flat=True))
+        message = ('Новое сообщение в блоге',
+                   '''Пользователь {} опубликовал новую запись в своем блоге.
+                   Посмотреть запись: {}{}'''.format(instance.creator.get_full_name(), host, url),
+                   settings.EMAIL_HOST_USER,
+                   recipients),
+
+        send_mass_mail(message, fail_silently=False)
+
+post_save.connect(record_created, sender=Record)

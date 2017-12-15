@@ -1,11 +1,7 @@
 # -*- coding=utf8 -*-
 from django.views.generic import ListView, DetailView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
-from django.core.mail import send_mass_mail
-from django.conf import settings
-from django.contrib.auth.models import AnonymousUser
 from .models import Record
 from .forms import RecordForm
 from users.models import Users
@@ -46,27 +42,9 @@ class RecordCreateView(LoginRequiredMixin, CreateView):
         self.instance = form.save(commit=False)
         self.instance.creator = self.request.user
         self.instance.save()
-        self.send_email()
         return redirect(self.get_success_url())
 
     def get_success_url(self):
         return self.instance.get_absolute_url
 
-    def send_email(self):
-        # move to form or sigmals
-        host = self.request.META['HTTP_HOST']
-        url = self.instance.get_absolute_url
-        recipients = self.instance.creator.subscribers.all().values_list('email', flat=True)
-        if recipients:
-            send_mass_mail(
-                'Новое сообщение в блоге',
-                '''Пользователь {} опубликовал новую запись в своем блоге.
-                Посмотреть запись: {}{}'''.format(self.instance.creator.get_full_name, host, url),
-                settings.EMAIL_HOST_USER,
-                recipients,
-                fail_silently=False
-            )
 
-@login_required
-def mark_viewed(request, pk):
-    pass

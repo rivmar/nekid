@@ -2,7 +2,7 @@ from django.contrib import admin
 from .models import Record
 
 class RecordAdmin(admin.ModelAdmin):
-    fields = ('title', 'body')
+    fields = ('title', 'body', 'creator')
     readonly_fields = ('created',)
 
 

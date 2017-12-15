@@ -137,3 +137,5 @@ EMAIL_HOST = 'example.com'
 EMAIL_PORT = '465'
 EMAIL_HOST_USER = 'user@example.com'
 EMAIL_HOST_PASSWORD = 'pass'
+
+SITE_URL = 'http://120.0.0.1:8000'
