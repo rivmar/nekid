@@ -7,16 +7,11 @@ admin Moscow10
 
 ivan 10
 
-egor 10
-
 ksu 10
 
 nata Moscow10
 
 
-To change or set user password use:
-
-python manage.py changepassword %username%
 
 ## Emails
 For testing purposes I used 

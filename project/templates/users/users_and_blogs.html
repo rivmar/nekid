@@ -10,12 +10,12 @@
               <tbody>
                 {% for user in users %}
                     <tr>
-                      <td>{{ user.get_full_name }}</td>
+                      <td>{{ user.user.get_full_name }}</td>
                         <td><a href="{% url 'blogs:records' user.id %}">{{ user.blog_name }}</a></td>
                       <td>
                           {% if request.user.id and request.user.id != user.id %}
                             <button id="{{ user.id }}" class="btn
-                            {% if user in request.user.subscribes.all %}
+                            {% if user in request.user.users.subscribes.all %}
                                 btn-outline-warning">&nbsp;Отписаться&nbsp;
                             {% else %}
                                 btn-outline-info">Подписаться

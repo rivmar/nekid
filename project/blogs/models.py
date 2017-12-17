@@ -6,7 +6,7 @@ from django.db.models.signals import post_save
 from django.core.mail import send_mass_mail
 
 class Record(models.Model):
-    creator = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='records', verbose_name='Автор')
+    creator = models.ForeignKey('users.Users', related_name='records', verbose_name='Автор')
     title = models.CharField(max_length=200, blank=True, verbose_name='Название')
     body = models.TextField(verbose_name='Текст')
     created = models.DateTimeField(auto_now_add=True)
@@ -27,10 +27,11 @@ def record_created(sender,**kwargs):
     if created:
         host = settings.SITE_URL
         url = instance.get_absolute_url
-        recipients = list(instance.creator.subscribers.all().values_list('email', flat=True))
+        subscribers = instance.creator.subscribers.all()
+        recipients = [s.user.email for s in subscribers]
         message = ('Новое сообщение в блоге',
                    '''Пользователь {} опубликовал новую запись в своем блоге.
-                   Посмотреть запись: {}{}'''.format(instance.creator.get_full_name(), host, url),
+                   Посмотреть запись: {}{}'''.format(instance.creator.user.get_full_name(), host, url),
                    settings.EMAIL_HOST_USER,
                    recipients),
 

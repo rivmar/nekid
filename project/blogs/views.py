@@ -15,7 +15,7 @@ class RecordListView(ListView):
         if not pk_list[0]:
             pk_list = [self.request.user.id]
             try:
-                subscribes = self.request.user.subscribes.all().values_list('id', flat=True)
+                subscribes = self.request.user.users.subscribes.all().values_list('id', flat=True)
                 pk_list.extend(list(subscribes))
             except AttributeError:
                 pass
@@ -40,7 +40,7 @@ class RecordCreateView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         self.instance = form.save(commit=False)
-        self.instance.creator = self.request.user
+        self.instance.creator = self.request.user.users
         self.instance.save()
         return redirect(self.get_success_url())
 

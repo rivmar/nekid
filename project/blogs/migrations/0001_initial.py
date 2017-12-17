@@ -23,7 +23,7 @@ class Migration(migrations.Migration):
                 ('title', models.CharField(blank=True, max_length=200, verbose_name='Название')),
                 ('body', models.TextField(verbose_name='Текст')),
                 ('created', models.DateTimeField(auto_now_add=True)),
-                ('creator', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='records', to=settings.AUTH_USER_MODEL, verbose_name='Автор')),
+                ('creator', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='records', to='users.Users', verbose_name='Автор')),
             ],
             options={
                 'ordering': ('-created',),
